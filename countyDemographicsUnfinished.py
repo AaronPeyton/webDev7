@@ -56,16 +56,26 @@ def state_with_most_counties(counties):
     #Return the state with the most counties
     states = {str(counties[0]["State"]) : [str(counties[0]["County"])]}
     # print states
+
+    ## dictionarying states and counties
     for c in counties:
-        print c["State"], c["County"]
+        # print c["State"], c["County"]
         state = str(c["State"])
         county = str(c["County"])
 
         if state in states:
-            states[state] += county
+            states[state].append(county)
         else:
             states[state] = [county]
-    return states
+    
+    # finding state w/ most counties
+    mostCountiesState = ""
+    numC = 0
+    for state, counties in states.iteritems():
+        if numC < len(counties):
+            mostCountiesState = state
+            numC = len(counties)
+    return [mostCountiesState, numC]
 
 
 
